@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var project = new Project { Project_id = id, Name = "Project " + id, Description = "Details of project " + id }
+            var project = new Project { Project_id = id, Name = "Project " + id, Description = "Details of project " + id };
             return View(project);
         }
 
