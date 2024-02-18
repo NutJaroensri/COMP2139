@@ -19,6 +19,7 @@
                 <td>
                     Description
                 </td>
+                <td>Actions</td>
             </tr>
 
         </thead>
@@ -29,6 +30,11 @@
                <td> @project.Project_id</td>
                <td> @project.Name</td>
                <td> @project.Description</td>
+               <td>
+                        <a asp-route-id="@project.Project_id" class="btn btn-info" asp-controller="Projects" asp-action="Details">Details</a>
+                        <a asp-route-id="@project.Project_id" class="btn btn-danger" asp-controller="Projects" asp-action="Delete">Delete</a>
+
+               </td>
 
            </tr>         
 
@@ -49,3 +55,7 @@
 }else{
     <p>No Project</p>
 }
+
+<p>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Create">Create Project</a>
+</p>

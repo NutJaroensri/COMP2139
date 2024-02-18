@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models
 {
@@ -6,10 +7,22 @@ namespace WebApplication1.Models
     {
         public int Project_id { get; set; }
         [Required]
+        [MaxLength(10)]
+        [DisplayName("Project Name:")]
         public string Name { get; set; }
-        public string Description { get; set; }
+
+        //nullable ?
+        public string? Description { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
-        public string Status { get; set; }
+
+        //nullable ?
+        public string? Status { get; set; }
+
+        public List<ProjectTask>? Tasks { get; set; }
     }
 }
