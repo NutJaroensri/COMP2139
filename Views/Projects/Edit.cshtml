@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Project
+﻿@model WebApplication2.Models.Project
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,9 +10,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="ProjectId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Project_id" />
+            <input type="hidden" asp-for="ProjectId" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -40,16 +41,19 @@
                     @{
                         var statuses = new List<string> { "New", "In Progress", "Complete" };
                         foreach (var status in statuses)
+
                         {
                             if (Model.Status == status)
                             {
                                 <option value="@status" selected>@status</option>
                             }
-                            else{
-                                <option value="@status">@status</option>
+                            else
+                            {
+                                <option value="@status">@status</option>    
                             }
                         }
                     }
+                   
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
@@ -61,7 +65,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-projectId="@Model.ProjectId" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

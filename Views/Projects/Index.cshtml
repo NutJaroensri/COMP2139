@@ -1,61 +1,71 @@
 ﻿@model List<Project>
 @{
-    ViewData["Title"] = "Projects";
+	ViewData["Title"] = "Projects";
+	bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+	string searchString = ViewData["SearchString"] as string;
 
 }
 
-<h2> Projects</h2>
+<h2>Projects</h2>
+@if (Model.Any())
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					ID
+				</th>
+				<th>
+					Name
+				</th>
+				<th>
+					Description
+				</th>
+				<td>
+					Action
+				</td>
 
-@if (Model.Any()){
-    <table class="table">
-        <thead>
-            <tr>
-                <td>
-                    ID
-                </td>
-                <td>
-                    Name
-                </td>
-                <td>
-                    Description
-                </td>
-                <td>Actions</td>
-            </tr>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var project in Model)
+			{
+				<tr>
+					<td> @project.ProjectId</td>
+					<td> @project.Name</td>
+					<td>@project.Description</td>
+					<td>
+						<a asp-action="Details" asp-route-id ="@project.ProjectId" class="btn btn-info">Details</a>
+						<a asp-action="Delete" asp-route-id="@project.ProjectId" class="btn btn-danger">Delete</a>
+						<!-- Link to view tasks-->
+						<a asp-controller="Tasks" asp-action="Index" asp-route-projectId="@project.ProjectId" class="btn btn-warning">View Tasks</a>
+					</td>
 
-        </thead>
-        <tbody>
-        @foreach(var project in Model)
-        {
-           <tr>
-               <td> @project.Project_id</td>
-               <td> @project.Name</td>
-               <td> @project.Description</td>
-               <td>
-                        <a asp-route-id="@project.Project_id" class="btn btn-info" asp-controller="Projects" asp-action="Details">Details</a>
-                        <a asp-route-id="@project.Project_id" class="btn btn-danger" asp-controller="Projects" asp-action="Delete">Delete</a>
+				</tr>
+			}
+		</tbody>
 
-               </td>
-
-           </tr>         
-
-
-
-        }
-
-
-        </tbody>
-
-
+	</table>
 
 
 
-    </table>
 
 
-}else{
-    <p>No Project</p>
+
+}
+else
+{
+	if (searchPerformed)
+	{
+		<p>No projects name with name "@searchString".</p>
+	}
+	else
+
+	{
+		<p>No projects available</p>
+	}
 }
 
-<p>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Create">Create Project</a>
+<p class="nav-item">
+	<a asp-area="" asp-controller="Projects" asp-action="Create" class="btn btn-primary">Create Project</a>
 </p>

@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Project
+﻿@model WebApplication2.Models.Project
 
 @{
     ViewData["Title"] = "Create";
@@ -50,9 +50,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

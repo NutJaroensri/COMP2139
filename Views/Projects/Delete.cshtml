@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Project
+﻿@model WebApplication2.Models.Project
 
 @{
     ViewData["Title"] = "Delete";
@@ -43,10 +43,9 @@
         </dd>
     </dl>
     
-    <form asp-action="DeleteComfirmed" method="post">
-        @Html.HiddenFor(model => model.Project_id)
-       
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+    <form asp-action="DeleteConfirm" method="post">
+        @Html.HiddenFor(model => model.ProjectId)
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
