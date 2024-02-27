@@ -20,3 +20,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar {
+    text-align: right;
+    background-color: bisque;
+}
+    /*Custom dropdown style*/
+    .navbar .dropdown-toggle {
+        color: white;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+        /* change color hover*/
+        .navbar .dropdown-toggle:hover {
+            color: #007bff;
+            background-color: white;
+        }
