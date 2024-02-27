@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Models
+﻿namespace WebApplication2.Models
 {
     public class ProjectTask
     {
@@ -6,7 +6,6 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public int ProjectId { get; set; }
-
         public Project? Project { get; set; }
     }
 }
