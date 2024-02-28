@@ -1,4 +1,5 @@
-namespace WebApplication2.Models
+﻿namespace WebApplication2.Models
+
 {
     public class ErrorViewModel
     {
@@ -7,3 +8,4 @@ namespace WebApplication2.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+

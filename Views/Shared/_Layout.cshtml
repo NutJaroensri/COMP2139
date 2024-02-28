@@ -13,34 +13,43 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> COMP2139</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GBC_Travel_Group_XX</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
 
-                <!-- Search Form-->
                 <form class="d-flex" asp-controller="Home" asp-action="GeneralSearch" method="get">
                     <input class="form-control" type="text" placeholder="Search" name="searchString" />
                     <select class="form-control btn btn-secondary dropdown-toggle" name="searchType">
-                        <option value="Projects">Projects</option>
-                        <option value="Tasks">Tasks</option>
+                        
+                        <option value="Flights">Flights</option>
+                        <option value="Rental">Rental</option>
+                        <option value="Hotel">Hotel</option>
+
                     </select>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
 
-
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-home"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About"><i class="fa-solid fa-list-check"></i> About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">Projects <i class="fa-solid fa-folder-open"></i></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Index"><i class="fa-solid fa-plane"></i> Flights</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rental" asp-action="Index"><i class="fa-solid fa-car"></i> Car Rents</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Index"><i class="fa-solid fa-bed"></i> Hotels</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
