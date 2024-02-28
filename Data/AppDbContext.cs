@@ -7,7 +7,28 @@ namespace WebApplication2.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
         
         }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectTask> ProjectTasks { get; set; }
+        public DbSet<Flight> Flights { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
+        public DbSet<FlightBooking> FlightBookings { get; set; }
+        public DbSet<HotelBooking> HotelBookings { get; set; }
+        public DbSet<RentalBooking> RentalBookings { get; set;}
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Specify column types for properties
+            modelBuilder.Entity<Hotel>()
+                .Property(h => h.Price)
+                .HasColumnType("decimal(18,2)");
+            modelBuilder.Entity<Flight>()
+                .Property(h => h.Price)
+                .HasColumnType("decimal(18,2)");
+            modelBuilder.Entity<Rental>()
+                .Property(h => h.Price)
+                .HasColumnType("decimal(18,2)");
+           
+
+        }
     }
 }
