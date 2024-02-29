@@ -117,55 +117,45 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            [HttpGet]
-            public async Task<IActionResult> Search(string origin, string destination, TimeOnly? departureTime, decimal? price)
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var flightsQuery = from f in _context.Flights
+                               select f;
+            bool searchPerformed = !String.IsNullOrEmpty(searchString);
+            if (searchPerformed)
             {
-                var flightQuery = from p in _context.Flights
-                                  select p;
-
-                bool searchPerformed = !String.IsNullOrEmpty(origin)
-                                    || !String.IsNullOrEmpty(destination)
-                                    || departureTime != null
-                                    || price != null;
-
-                if (searchPerformed)
-                {
-                    if (!String.IsNullOrEmpty(origin))
-                    {
-                        flightQuery = flightQuery.Where(p => p.Origin.Contains(origin));
-                    }
-
-                    if (!String.IsNullOrEmpty(destination))
-                    {
-                        flightQuery = flightQuery.Where(p => p.Destination.Contains(destination));
-                    }
-
-
-                }
-
-                var flights = await flightQuery.ToListAsync();
-                ViewData["SearchedPerformed"] = searchPerformed;
-                return View("Index", flights);
+                flightsQuery = flightsQuery.Where(f => f.Airline.Contains(searchString)
+                                                             || f.Origin.Contains(searchString)
+                                                             || f.Destination.Contains(searchString));
             }
 
-            public IActionResult Book(int? id)
-            {
-                if (id == null)
-                {
-                    return NotFound();
-                }
+            var flights = await flightsQuery.ToListAsync();
+            ViewData["SearchPerformed"] = searchPerformed;
+            ViewData["SearchString"] = searchString;
+            return View("Index", flights);
 
-                var flight = _context.Flights.FirstOrDefault(m => m.Id == id);
-                if (flight == null)
-                {
-                    return NotFound();
-                }
-
-                return View(flight);
-            }
+        }
 
 
-            [HttpPost]
+
+		public IActionResult Book(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var flight = _context.Flights.FirstOrDefault(m => m.Id == id);
+			if (flight == null)
+			{
+				return NotFound();
+			}
+
+			return View(flight);
+		}
+
+
+		[HttpPost]
             public IActionResult Book(int id, [Bind("Id,Name")] FlightBooking flightBooking)
             {
                 if (ModelState.IsValid)

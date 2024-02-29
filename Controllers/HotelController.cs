@@ -17,8 +17,8 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var hotelBookings = _context.Hotels.ToList();
-            return View(hotelBookings);
+            var hotels = _context.Hotels.ToList();
+            return View(hotels);
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var carrent = _context.Rentals.FirstOrDefault(p => p.Id == id);
+            var carrent = _context.Hotels.FirstOrDefault(p => p.Id == id);
             if (carrent == null)
             {
                 return NotFound();
@@ -119,33 +119,22 @@ namespace WebApplication2.Controllers
             return NotFound();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Search(string hotelName, string location)
+        public async Task<IActionResult> Search(string searchString)
         {
-            var hotelQuery = from p in _context.Rentals
-                               select p;
-
-            bool searchPerformed = !String.IsNullOrEmpty(hotelName)
-                                || !String.IsNullOrEmpty(location);
-
-
+            var hotelsQuery = from h in _context.Hotels
+                               select h;
+            bool searchPerformed = !String.IsNullOrEmpty(searchString);
             if (searchPerformed)
             {
-                if (!String.IsNullOrEmpty(hotelName))
-                {
-                    hotelQuery = hotelQuery.Where(p => p.ModelName.Contains(hotelName));
-                }
-
-                if (!String.IsNullOrEmpty(location))
-                {
-                    hotelQuery = hotelQuery.Where(p => p.RentalProvider.Contains(location));
-                }
-
-
+                hotelsQuery = hotelsQuery.Where(h => h.HotelName.Contains(searchString)
+                                                             || h.Location.Contains(searchString));
             }
-            var hotel = await hotelQuery.ToListAsync();
-            ViewData["SearchedPerformed"] = searchPerformed;
-            return View("Index", hotel);
+
+            var hotels = await hotelsQuery.ToListAsync();
+            ViewData["SearchPerformed"] = searchPerformed;
+            ViewData["SearchString"] = searchString;
+            return View("Index", hotels);
+
         }
 
         public IActionResult Book(int? id)
