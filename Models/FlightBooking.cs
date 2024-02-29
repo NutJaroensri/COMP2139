@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication2.Models
+namespace GBC_Travel_Group_83.Models
 {
     public class FlightBooking
     {
@@ -27,5 +27,9 @@ namespace WebApplication2.Models
 
         [Required]
         public DateTime ArrivalDateTime { get; set; }
+
+        public int FlightId { get; set; }
+
+        public Flight Flight { get; set; }
     }
 }

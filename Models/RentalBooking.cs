@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication2.Models
+namespace GBC_Travel_Group_83.Models
 {
     public class RentalBooking
     {
