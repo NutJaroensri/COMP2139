@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication2.Models;
-namespace WebApplication2.Data
+using GBC_Travel_Group_83.Models;
+namespace GBC_Travel_Group_83.Data
 {
     public class AppDbContext : DbContext
     {
