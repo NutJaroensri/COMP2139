@@ -14,7 +14,13 @@ namespace WebApplication2.Models
         public string FlightNumber { get; set; }
 
         [Required]
-        public string FlightStatus { get; set;}
+        public string Origin { get; set; }
+
+        [Required]
+        public string Destination { get; set; }
+
+        [Required]
+        public string FlightStatus { get; set; }
 
         [Required]
         public DateTime DepartureDateTime { get; set; }
