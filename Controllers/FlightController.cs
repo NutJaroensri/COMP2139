@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.Data;
-using WebApplication2.Models;
+using GBC_Travel_Group_83.Data;
+using GBC_Travel_Group_83.Models;
 
-namespace WebApplication2.Controllers
+namespace GBC_Travel_Group_83.Controllers
 {
     public class FlightController : Controller
     {
@@ -138,41 +138,47 @@ namespace WebApplication2.Controllers
 
 
 
-		public IActionResult Book(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
-
-			var flight = _context.Flights.FirstOrDefault(m => m.Id == id);
-			if (flight == null)
-			{
-				return NotFound();
-			}
-
-			return View(flight);
-		}
-
-
-		[HttpPost]
-            public IActionResult Book(int id, [Bind("Id,Name")] FlightBooking flightBooking)
+        public IActionResult Book(int? id)
+        {
+            if (id == null)
             {
-                if (ModelState.IsValid)
-                {
-                    _context.FlightBookings.Add(flightBooking);
-                    _context.SaveChanges();
-                    return RedirectToAction(nameof(Index));
-                }
-
-                return View(flightBooking);
+                return NotFound();
             }
 
+            var flight = _context.Flights.FirstOrDefault(m => m.Id == id);
+            if (flight == null)
+            {
+                return NotFound();
+            }
+
+            
+            ViewBag.FlightId = id;
+
+            
+            return View(new FlightBooking());
+        }
 
 
-            private bool FlightExists(int id)
+        [HttpPost]
+        public IActionResult Book(int id, [Bind("Id,Name")] FlightBooking flightBooking)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.FlightBookings.Add(flightBooking);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(flightBooking);
+        }
+
+
+        private bool FlightExists(int id)
             {
                 return _context.Flights.Any(p => p.Id == id);
             }
+
+      
+
     }
 }

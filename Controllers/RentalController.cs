@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.Data;
-using WebApplication2.Models;
+using GBC_Travel_Group_83.Data;
+using GBC_Travel_Group_83.Models;
 
-namespace WebApplication2.Controllers
+namespace GBC_Travel_Group_83.Controllers
 {
     
     public class RentalController : Controller
@@ -164,26 +164,30 @@ namespace WebApplication2.Controllers
             return View("Index", rentals);
 
         }
-    
-
-        public IActionResult Book(int? id)
-        {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var rental = _context.Rentals.FirstOrDefault(m => m.Id == id);
-                if (rental == null)
-                {
-                    return NotFound();
-                }
-
-                return View(rental);
-        }
 
 
-        [HttpPost]
+		public IActionResult Book(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var rentalCar = _context.Rentals.FirstOrDefault(m => m.Id == id);
+			if (rentalCar == null)
+			{
+				return NotFound();
+			}
+
+
+			ViewBag.RentalId = id;
+
+
+			return View(new RentalBooking());
+		}
+
+
+		[HttpPost]
         public IActionResult Book(int id, [Bind("Id,Name")] RentalBooking rentalBooking)
         {
 

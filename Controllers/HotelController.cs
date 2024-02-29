@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication2.Models;
-using WebApplication2.Data;
+using GBC_Travel_Group_83.Models;
+using GBC_Travel_Group_83.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication2.Controllers
+namespace GBC_Travel_Group_83.Controllers
 {
     public class HotelController : Controller
     {
@@ -150,7 +150,11 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return View(hotel);
+
+            ViewBag.HotelId = id;
+
+
+            return View(new HotelBooking());
         }
 
 

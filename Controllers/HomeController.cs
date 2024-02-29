@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebApplication2.Models;
+using GBC_Travel_Group_83.Models;
 
-namespace WebApplication2.Controllers
+namespace GBC_Travel_Group_83.Controllers
 {
     public class HomeController : Controller
     {
