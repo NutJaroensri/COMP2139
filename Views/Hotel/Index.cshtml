@@ -1,0 +1,56 @@
+﻿@model List<Hotel>
+@{
+	ViewData["Title"] = "Hotels";
+	bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+	string searchString = ViewData["SearchString"] as string;
+
+}
+
+<h2>Hotels</h2>
+@if (Model.Any())
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Hotel ID</th>
+				<th>Hotel Name</th>
+				<th>Location</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var hotel in Model)
+			{
+				<tr>
+					<td>@hotel.Id</td>
+					<td>@hotel.HotelName</td>
+					<td>@hotel.Location</td>
+					<td>
+						<a asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-info">Details</a>
+						<a asp-action="Edit" asp-route-id="@hotel.Id" class="btn btn-secondary">Edit</a>
+						<a asp-action="Delete" asp-route-id="@hotel.Id" class="btn btn-danger">Delete</a>
+						<a asp-action="Book" asp-route-id="@hotel.Id" class="btn btn-danger">Book</a>
+
+					</td>
+				</tr>
+
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	if (searchPerformed)
+	{
+		<p>No Hotel with "@searchString".</p>
+	}
+	else
+
+	{
+		<p>No Hotels available</p>
+	}
+}
+
+<p class="nav-item">
+	<a asp-area="" asp-controller="Hotel" asp-action="Create" class="btn btn-primary">Create Hotel</a>
+</p>

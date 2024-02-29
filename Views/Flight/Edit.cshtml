@@ -1,17 +1,18 @@
 ﻿@model WebApplication2.Models.Flight
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Flight</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="FlightNumber" class="control-label"></label>
                 <input asp-for="FlightNumber" class="form-control" />
@@ -29,22 +30,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="DepartureTime" class="control-label"></label>
-                <input asp-for="DepartureTime" class="form-control" type="time" />
+                <input asp-for="DepartureTime" class="form-control" />
                 <span asp-validation-for="DepartureTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ArrivalTime" class="control-label"></label>
-                <input asp-for="ArrivalTime" class="form-control" type="time" />
-                <span asp-validation-for="ArrivalTime" class="text-danger" ></span>
+                <input asp-for="ArrivalTime" class="form-control" />
+                <span asp-validation-for="ArrivalTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FlightDurationMin" class="control-label"></label>
-                <input asp-for="FlightDurationMin" class="form-control" type="number" min="0" />
+                <input asp-for="FlightDurationMin" class="form-control" />
                 <span asp-validation-for="FlightDurationMin" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" type="number"/>
+                <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -53,14 +54,14 @@
                 <span asp-validation-for="Airline" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
