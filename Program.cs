@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.Data;
+using GBC_Travel_Group_83.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
