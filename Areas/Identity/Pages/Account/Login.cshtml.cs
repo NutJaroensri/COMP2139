@@ -14,18 +14,25 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WebApplication2.Areas.ProjectManagement.Models;
+using System.Net.Mail;
 
 namespace WebApplication2.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel
+            (SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            ILogger<LoginModel> logger)
         {
-            _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -65,7 +72,8 @@ namespace WebApplication2.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [EmailAddress]
+            // [EmailAddress]
+            [Display(Name = "Email / Username")]
             public string Email { get; set; }
 
             /// <summary>
@@ -109,6 +117,20 @@ namespace WebApplication2.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                var username = Input.Email;
+
+                if (IsValidEmail(Input.Email))
+                {
+                    var user =
+                        await
+                        _userManager.FindByEmailAsync(Input.Email);
+
+                    if (user != null)
+                    {
+                        username = user.UserName;
+                    }
+                } 
+
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
@@ -131,10 +153,29 @@ namespace WebApplication2.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
+
+                
             }
+
+            
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        public bool IsValidEmail(string emailAddress)
+        {
+            try
+            {
+                var MailAddress =
+                    new MailAddress(emailAddress);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
