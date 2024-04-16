@@ -1,0 +1,62 @@
+﻿@model List<Hotel>
+@{
+    ViewData["Title"] = "Hotels";
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<h2 class="mb-4">Hotels</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Hotel ID</th>
+                    <th>Hotel Name</th>
+                    <th>Location</th>
+                    <th>Check in Time</th>
+                    <th>Check out Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hotel in Model)
+                {
+                    <tr>
+                        <td>@hotel.HotelId</td>
+                        <td>@hotel.HotelName</td>
+                        <td>@hotel.Location</td>
+                        <td>@hotel.CheckInTime</td>
+                        <td>@hotel.CheckOutTime</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Hotel Actions">
+                                <a asp-action="Details" asp-route-id="@hotel.HotelId" class="btn btn-info">Details</a>
+                                <a asp-action="Edit" asp-route-id="@hotel.HotelId" class="btn btn-secondary">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@hotel.HotelId" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        @if (searchPerformed)
+        {
+            <p>No flights found matching "@searchString".</p>
+        }
+        else
+        {
+            <p>No hotels available.</p>
+        }
+    </div>
+}
+
+<div class="text-center">
+    <a asp-area="BookingManagement" asp-controller="Hotels" asp-action="Create" class="btn btn-primary">Create Hotel</a>
+</div>

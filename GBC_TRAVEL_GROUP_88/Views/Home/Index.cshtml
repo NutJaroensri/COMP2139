@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="display-4">Welcome to COMP 2139</h1>
+            <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <img src="~/img/plane.png" alt="Flight Icon" style="width: 80px; height: 80px;">
+                    <h5 class="card-title">Flight</h5>
+                    <p class="card-text">Explore and book flights for your journey.</p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" asp-area="BookingManagement" asp-controller="Flights" asp-action="Index">View Available Flights</a>
+                        <a class="btn btn-secondary mt-2" asp-area="BookingManagement" asp-controller="FlightBookings" asp-action="Index">My Flights</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <img src="~/img/hotel.png" alt="Hotel Icon" style="width: 80px; height: 80px;">
+                    <h5 class="card-title">Hotel</h5>
+                    <p class="card-text">Discover and book hotels for your stay.</p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" asp-area="BookingManagement" asp-controller="Hotels" asp-action="Index">View Available Hotels</a>
+                        <a class="btn btn-secondary mt-2" asp-area="BookingManagement" asp-controller="HotelBookings" asp-action="Index">My Hotels</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <img src="~/img/car.png" alt="Car Icon" style="width: 80px; height: 80px;">
+                    <h5 class="card-title">Rent a Car</h5>
+                    <p class="card-text">Find and rent a car for your journey. Choose the one your needs.</p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" asp-area="BookingManagement" asp-controller="RentalCars" asp-action="Index">View Available Cars</a>
+                        <a class="btn btn-secondary mt-2" asp-area="BookingManagement" asp-controller="RentalCarBookings" asp-action="Index">My Cars</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
