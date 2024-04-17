@@ -1,0 +1,56 @@
+﻿@model List<RentalCar>
+@{
+    ViewData["Title"] = "HotelBooking";
+
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<h2>Select a Car to Book</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Rental Car ID</th>
+                    <th>Model Name</th>
+                    <th>Rental Provider</th>
+                    
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rentalCar in Model)
+                {
+                    <tr>
+                        <td>@rentalCar.RentalCarId</td>
+                        <td>@rentalCar.ModelName</td>
+                        <td>@rentalCar.RentalProvider</td>
+                        
+                        <td>
+                            <form asp-controller="RentalCarBookings" asp-action="Create" method="post">
+                                <input type="hidden" name="hotelId" value="@rentalCar.RentalCarId" />
+                                <button type="submit" class="btn btn-primary">Book</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        @if (searchPerformed)
+        {
+            <p>No flights found matching "@searchString".</p>
+        }
+        else
+        {
+            <p>No flight bookings available.</p>
+        }
+    </div>
+}

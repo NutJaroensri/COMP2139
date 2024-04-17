@@ -1,0 +1,58 @@
+﻿@model List<Hotel>
+@{
+    ViewData["Title"] = "HotelBooking";
+
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<h2>Select a Hotel to Book</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Hotel ID</th>
+                    <th>Hotel Name</th>
+                    <th>Location</th>
+                    <th>Check in Time</th>
+                    <th>Check out Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hotel in Model)
+                {
+                    <tr>
+                        <td>@hotel.HotelId</td>
+                        <td>@hotel.HotelName</td>
+                        <td>@hotel.Location</td>
+                        <td>@hotel.CheckInTime</td>
+                        <td>@hotel.CheckOutTime</td>
+                        <td>
+                            <form asp-controller="HotelBookings" asp-action="Create" method="post">
+                                <input type="hidden" name="hotelId" value="@hotel.HotelId" />
+                                <button type="submit" class="btn btn-primary">Book</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        @if (searchPerformed)
+        {
+            <p>No Hotels found matching "@searchString".</p>
+        }
+        else
+        {
+            <p>No hotel bookings available.</p>
+        }
+    </div>
+}
