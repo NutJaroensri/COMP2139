@@ -1,0 +1,75 @@
+﻿@model List<RentalCar>
+@{
+	ViewData["Title"] = "Rental Cars";
+	bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+	string searchString = ViewData["SearchString"] as string;
+
+}
+
+<h2>Rental Cars</h2>
+@if (Model.Any())
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Rental Car ID
+				</th>
+				<th>
+					Plate Number
+				</th>
+				<th>
+					Model Name
+				</th>
+				<th>
+					Rental Company
+				</th>
+				<th>
+					Action
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var rentalCar in Model)
+			{
+				<tr>
+					<td> @rentalCar.RentalCarId</td>
+					<td> @rentalCar.PlateNumber</td>
+					<td> @rentalCar.ModelName</td>
+					<td>@rentalCar.RentalProvider</td>
+					<td>
+						<a asp-action="Details" asp-route-id="@rentalCar.RentalCarId" class="btn btn-info">Details</a>
+						<a asp-action="Edit" asp-route-id="@rentalCar.RentalCarId" class="btn btn-secondary">Edit</a>
+						<a asp-action="Delete" asp-route-id="@rentalCar.RentalCarId" class="btn btn-danger">Delete</a>
+
+					</td>
+
+				</tr>
+			}
+		</tbody>
+
+	</table>
+
+
+
+
+
+
+}
+else
+{
+	if (searchPerformed)
+	{
+		<p>No Rental Car with "@searchString".</p>
+	}
+	else
+
+	{
+		<p>No rental cars available</p>
+	}
+}
+
+<p class="nav-item">
+	<a asp-area="BookingManagement" asp-controller="RentalCars" asp-action="Create" class="btn btn-primary">Create Rental Car</a>
+</p>

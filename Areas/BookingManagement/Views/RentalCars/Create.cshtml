@@ -1,0 +1,65 @@
+﻿@model GBC_TRAVEL_GROUP_88.Areas.BookingManagement.Models.RentalCar
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Rental</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PlateNumber" class="control-label"></label>
+                <input asp-for="PlateNumber" class="form-control" />
+                <span asp-validation-for="PlateNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentalProvider" class="control-label"></label>
+                <input asp-for="RentalProvider" class="form-control" />
+                <span asp-validation-for="RentalProvider" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelName" class="control-label"></label>
+                <input asp-for="ModelName" class="form-control" />
+                <span asp-validation-for="ModelName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelDescription" class="control-label"></label>
+                <input asp-for="ModelDescription" class="form-control" />
+                <span asp-validation-for="ModelDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelType" class="control-label"></label>
+                <input asp-for="ModelType" class="form-control" />
+                <span asp-validation-for="ModelType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" type="number" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAvaiable" /> @Html.DisplayNameFor(model => model.IsAvaiable)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

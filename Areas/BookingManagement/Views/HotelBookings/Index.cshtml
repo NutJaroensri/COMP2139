@@ -1,0 +1,60 @@
+﻿@model List<HotelBooking>
+@{
+    ViewData["Title"] = "HotelBookings";
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<h2 class="mb-4">Hotel Bookings</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Hotel Booking ID</th>
+                    <th>Hotel Name</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hotelBooking in Model)
+                {
+                    <tr>
+                        <td>@hotelBooking.HotelBookingId</td>
+                        <td>@hotelBooking.HotelName</td>
+                        <td>@hotelBooking.Location</td>
+                      
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Flight Actions">
+                                <a asp-action="Details" asp-route-id="@hotelBooking.HotelBookingId" class="btn btn-secondary">Details</a>
+
+                                <a asp-action="Delete" asp-route-id="@hotelBooking.HotelBookingId" class="btn btn-danger">Delete</a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        @if (searchPerformed)
+        {
+            <p>No flights found matching "@searchString".</p>
+        }
+        else
+        {
+            <p>No flights available.</p>
+        }
+    </div>
+}
+
+<div class="text-center">
+    <a asp-area="BookingManagement" asp-controller="HotelBookings" asp-action="Create" class="btn btn-primary">Create New Booking</a>
+</div>

@@ -1,0 +1,65 @@
+﻿@model List<FlightBooking>
+@{
+    ViewData["Title"] = "FlightBookings";
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<h2 class="mb-4">Flight Bookings</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Flight Booking ID</th>
+                    <th>Flight Number</th>
+                    <th>Airline</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Departure Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var flightBooking in Model)
+                {
+                    <tr>
+                        <td>@flightBooking.FlightBookingId</td>
+                        <td>@flightBooking.FlightNumber</td>
+                        <td>@flightBooking.Airline</td>
+                        <td>@flightBooking.Origin</td>
+                        <td>@flightBooking.Destination</td>
+                        <td>@flightBooking.DepartureTime</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Flight Actions">
+                                <a asp-action="Details" asp-route-id="@flightBooking.FlightBookingId" class="btn btn-secondary">Details</a>
+
+                                <a asp-action="Delete" asp-route-id="@flightBooking.FlightBookingId" class="btn btn-danger">Delete</a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        @if (searchPerformed)
+        {
+            <p>No flights found matching "@searchString".</p>
+        }
+        else
+        {
+            <p>No flights booking available.</p>
+        }
+    </div>
+}
+
+<div class="text-center">
+    <a asp-area="BookingManagement" asp-controller="FlightBookings" asp-action="Create" class="btn btn-primary">Create New Booking</a>
+</div>

@@ -1,0 +1,63 @@
+﻿@model List<RentalCarBooking>
+@{
+    ViewData["Title"] = "RentalCarBookings";
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<h2 class="mb-4">Rental Car Bookings</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Rental Car Booking ID</th>
+                    <th>Plate Number</th>
+                    <th>Model</th>
+                    <th>Rental Provider</th>
+                   
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rentalCarBooking in Model)
+                {
+                    <tr>
+                        <td>@rentalCarBooking.RentalCarBookingId</td>
+                        <td>@rentalCarBooking.PlateNumber</td>
+                        <td>@rentalCarBooking.ModelName</td>
+                        <td>@rentalCarBooking.RentalProvider</td>
+                       
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Rental Car Actions">
+                                <a asp-action="Details" asp-route-id="@rentalCarBooking.RentalCarBookingId" class="btn btn-secondary">Details</a>
+
+                                <a asp-action="Delete" asp-route-id="@rentalCarBooking.RentalCarBookingId" class="btn btn-danger">Delete</a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        @if (searchPerformed)
+        {
+            <p>No Cars found matching "@searchString".</p>
+        }
+        else
+        {
+            <p>No Cars booking available.</p>
+        }a
+    </div>
+}
+
+<div class="text-center">
+    <a asp-area="BookingManagement" asp-controller="RentalCarBookings" asp-action="Create" class="btn btn-primary">Create New Booking</a>
+</div>
